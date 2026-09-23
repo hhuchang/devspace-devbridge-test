@@ -11,7 +11,7 @@ The developer tunnel service (hereinafter referred to as the "Service") is provi
 
 ## I. Service Description and Disclaimer
 
-1. **Service provided "as is"**: The Service is provided on an "as is" and "as available" basis. **The Company makes no express or implied warranty as to the merchantability, fitness for a particular purpose, non-infringement, or error-free or uninterrupted operation of the Service.** **You shall evaluate and assume the risks and consequences arising from your use of the Service**, including but not limited to data loss, business interruption, and equipment damage.
+1. **Service provided "as is"**: The Service is provided on an "as is" (AS IS) and "as available" (AS AVAILABLE) basis. **The Company makes no express, implied, or statutory warranty as to the availability, continuity, stability, security, timeliness, accuracy, completeness, or fitness for a particular purpose of the Service. The Service is provided free of charge and without any Service Level Agreement (SLA) guarantee. You shall evaluate and assume on your own the risks and consequences arising from your use of the Service**, including but not limited to data loss, business interruption, and equipment damage.
 
 2. **Non-production use**: The Service is designed for development and testing scenarios, such as local prototype development, mobile testing, and remote debugging (non-production environments). **Do not use the Service for core business systems in production environments or for scenarios involving critical data or high-availability requirements.** **Any loss or liability arising from your unauthorized use of the Service in a production environment shall be borne solely by you, and the Company assumes no liability therefor.**
 
