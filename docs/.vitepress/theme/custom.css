@@ -101,7 +101,7 @@ html {
 }
 
 body {
-  font-synthesis: none;
+  font-synthesis: weight;
   text-rendering: optimizeLegibility;
 }
 
@@ -311,6 +311,11 @@ body {
   color: var(--vp-c-text-2);
   font-size: 17px;
   line-height: 1.7;
+}
+
+.vp-doc strong,
+.vp-doc b {
+  font-weight: 700;
 }
 
 .vp-doc a {
