@@ -186,16 +186,20 @@ body {
     border-radius: 6px;
     width: 220px;
     height: 34px;
-    background: var(--vp-c-bg);
+    background: transparent;
   }
 
   .DocSearch-Button:hover {
     border-color: var(--vp-c-border);
-    background: var(--vp-c-bg-soft);
+    background: rgb(255 255 255 / 40%);
   }
 
   .DocSearch-Button-Key {
     background: var(--vp-c-bg-soft);
+  }
+
+  .dark .DocSearch-Button:hover {
+    background: rgb(23 24 25 / 40%);
   }
 }
 
