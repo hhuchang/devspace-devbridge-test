@@ -1,12 +1,11 @@
 ---
 title: DevBridge
-description: The entry point to DevBridge: a five-minute quickstart, core concepts, and the command reference.
+description: "The entry point to DevBridge: a five-minute quickstart, core concepts, and the command reference."
 ---
 
 # DevBridge
 
 <p class="lead">Use DevBridge to securely expose your local development services to remote devices without opening any public inbound ports, and control how each port is accessed.</p>
-
 
 ## Getting started
 

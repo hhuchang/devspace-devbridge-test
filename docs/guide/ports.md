@@ -31,10 +31,10 @@ You must provide a port when creating; the protocol defaults to `auto`. Ports ra
 
 ## Choose a protocol
 
-| Protocol | Use case                                             |
-| -------- | ---------------------------------------------------- |
-| `http`   | The local service receives plain HTTP.               |
-| `https`  | The local service itself serves HTTPS.               |
+| Protocol | Use case                                                |
+| -------- | ------------------------------------------------------- |
+| `http`   | The local service receives plain HTTP.                  |
+| `https`  | The local service itself serves HTTPS.                  |
 | `auto`   | The connecting side detects the protocol automatically. |
 
 The protocol declares the local service on the Host side. Choosing the wrong one can cause handshake failures, dropped connections, or unrecognizable data in responses.

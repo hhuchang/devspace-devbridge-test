@@ -17,15 +17,15 @@ devbridge limits
 
 The output includes:
 
-| Item                                 | Description                                                |
-| ------------------------------------ | ---------------------------------------------------------- |
-| Reset time                           | The point in time when quota metering resets.              |
-| Traffic quota / traffic used         | The traffic limit and current usage of tunnel forwarding.  |
-| Active tunnels                       | The number of valid tunnels in the current workspace.      |
-| Tunnel / port / Host limits          | The maximum allowed count for each resource.               |
-| Tunnel bandwidth limit               | The bandwidth limit of a single tunnel.                    |
-| Per-port HTTP request-rate limit     | The HTTP request rate allowed for a single port.           |
-| Per-port connection limit            | The concurrent connection count allowed for a single port. |
+| Item                             | Description                                                |
+| -------------------------------- | ---------------------------------------------------------- |
+| Reset time                       | The point in time when quota metering resets.              |
+| Traffic quota / traffic used     | The traffic limit and current usage of tunnel forwarding.  |
+| Active tunnels                   | The number of valid tunnels in the current workspace.      |
+| Tunnel / port / Host limits      | The maximum allowed count for each resource.               |
+| Tunnel bandwidth limit           | The bandwidth limit of a single tunnel.                    |
+| Per-port HTTP request-rate limit | The HTTP request rate allowed for a single port.           |
+| Per-port connection limit        | The concurrent connection count allowed for a single port. |
 
 ::: tip When to check quotas
 
@@ -49,10 +49,10 @@ devbridge echo
 devbridge echo -p 8080 -i 0.0.0.0
 ```
 
-| Flag | Description                              |
-| ---- | ---------------------------------------- |
-| `-p` | Listening port; random by default.       |
-| `-i` | Listening address, default `127.0.0.1`.  |
+| Flag | Description                             |
+| ---- | --------------------------------------- |
+| `-p` | Listening port; random by default.      |
+| `-i` | Listening address, default `127.0.0.1`. |
 
 ### Verify together with Host
 
@@ -98,17 +98,17 @@ Output looks like:
 HTTP 200 OK -- 4 ms
 ```
 
-| Flag | Description                                |
-| ---- | ------------------------------------------ |
+| Flag | Description                                   |
+| ---- | --------------------------------------------- |
 | `-i` | Probe interval in milliseconds, default 1000. |
 
 ### Probe scenarios
 
-| Probe target                              | Description                                                |
-| ----------------------------------------- | ---------------------------------------------------------- |
-| Tunnel public URL                         | Verify that Host is running and the tunnel URL is reachable. |
-| `http://127.0.0.1:<port>`                 | Verify that Connect's local mapping works.                 |
-| `http://127.0.0.1:<port>` (Host side)     | Confirm the local service is listening.                    |
+| Probe target                          | Description                                                  |
+| ------------------------------------- | ------------------------------------------------------------ |
+| Tunnel public URL                     | Verify that Host is running and the tunnel URL is reachable. |
+| `http://127.0.0.1:<port>`             | Verify that Connect's local mapping works.                   |
+| `http://127.0.0.1:<port>` (Host side) | Confirm the local service is listening.                      |
 
 Press `Ctrl+C` to stop probing.
 

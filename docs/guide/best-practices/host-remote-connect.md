@@ -20,9 +20,9 @@ description: Host a service locally, then connect and access it from a remote de
 
 Goal: start an HTTP service on device A, host it through a DevBridge tunnel, connect to the tunnel from device B, and access device A's service at `http://localhost:8080` on device B.
 
-| Device  | Role    | Responsibility                                                    |
-| ------- | ------- | ---------------------------------------------------------------- |
-| Device A | Host    | Runs the local service and hosts its ports with DevBridge.        |
+| Device   | Role    | Responsibility                                                       |
+| -------- | ------- | -------------------------------------------------------------------- |
+| Device A | Host    | Runs the local service and hosts its ports with DevBridge.           |
 | Device B | Connect | Connects to the tunnel and sets up local port mappings to access it. |
 
 Both devices must have the DevBridge CLI installed and be logged in. If not, see [Install the DevBridge CLI](../install.md).
@@ -169,13 +169,13 @@ Both are equivalent: they point to the local port mapping on device B, which Dev
 
 ## Quick reference
 
-| Step | Device   | Terminal | Command                           | Description                          |
-| ---- | -------- | -------- | --------------------------------- | ------------------------------------ |
-| 1    | Device A | Terminal 1 | `python3 -m http.server 8080`   | Start the local HTTP service.        |
-| 2    | Device A | Terminal 2 | `devbridge host -p 8080`        | Host with a temporary tunnel (Option 1). |
-| 2    | Device A | Terminal 2 | `devbridge host <tunnelId>`     | Host with an existing tunnel (Option 2). |
-| 3    | Device B | Terminal   | `devbridge connect <tunnelId>`  | Connect and set up local mappings.   |
-| 4    | Device B | Browser    | `http://localhost:8080`         | Access the remote service.           |
+| Step | Device   | Terminal   | Command                        | Description                              |
+| ---- | -------- | ---------- | ------------------------------ | ---------------------------------------- |
+| 1    | Device A | Terminal 1 | `python3 -m http.server 8080`  | Start the local HTTP service.            |
+| 2    | Device A | Terminal 2 | `devbridge host -p 8080`       | Host with a temporary tunnel (Option 1). |
+| 2    | Device A | Terminal 2 | `devbridge host <tunnelId>`    | Host with an existing tunnel (Option 2). |
+| 3    | Device B | Terminal   | `devbridge connect <tunnelId>` | Connect and set up local mappings.       |
+| 4    | Device B | Browser    | `http://localhost:8080`        | Access the remote service.               |
 
 ## FAQ
 

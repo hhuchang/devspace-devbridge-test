@@ -62,10 +62,10 @@ irm https://tools-artifact.developer.huaweicloud.com/sharedata/devbridge/install
 
 A standard installation installs the current release and uses the default directories; you don't need to specify a version or installation source.
 
-| Item                        | Default location       |
-| --------------------------- | ---------------------- |
-| CLI executable              | `~/.huawei/bin`        |
-| CLI configuration and state | `~/.huawei/devbridge`  |
+| Item                        | Default location      |
+| --------------------------- | --------------------- |
+| CLI executable              | `~/.huawei/bin`       |
+| CLI configuration and state | `~/.huawei/devbridge` |
 
 ## Configure PATH
 

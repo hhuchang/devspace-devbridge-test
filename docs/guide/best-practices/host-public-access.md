@@ -133,21 +133,21 @@ https://<tunnelId>.<clusterId>.myhuaweicloud.com
 
 Open the URL directly in a browser on any device to access the local service. The behavior depends on the port's anonymous-access policy:
 
-| Port policy                          | Browser behavior                                                                        |
-| ------------------------------------ | --------------------------------------------------------------------------------------- |
-| Allows anonymous access (`-a`)       | Open the URL directly to access it — no DevBridge identity or credentials required.      |
+| Port policy                       | Browser behavior                                                                                            |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Allows anonymous access (`-a`)    | Open the URL directly to access it — no DevBridge identity or credentials required.                         |
 | Denies anonymous access (default) | You're redirected to a sign-in page; complete authentication to obtain credentials, then you can access it. |
 
 A port's anonymous-access policy is set at creation time with `-a` or `--deny-anonymous`. See [Manage ports](../ports.md).
 
 ## Quick reference
 
-| Step | Terminal   | Command                                               | Description                          |
-| ---- | ---------- | ----------------------------------------------------- | ------------------------------------ |
-| 1    | Terminal 1 | `python3 -m http.server 8080`                         | Start the local HTTP service.        |
-| 2    | Terminal 2 | `devbridge host -p 8080`                              | Host with a temporary tunnel (Option 1). |
-| 2    | Terminal 2 | `devbridge host <tunnelId>`                           | Host with an existing tunnel (Option 2). |
-| 3    | Browser    | `https://<tunnelId>.<clusterId>.myhuaweicloud.com`    | Access the tunnel URL directly.      |
+| Step | Terminal   | Command                                            | Description                              |
+| ---- | ---------- | -------------------------------------------------- | ---------------------------------------- |
+| 1    | Terminal 1 | `python3 -m http.server 8080`                      | Start the local HTTP service.            |
+| 2    | Terminal 2 | `devbridge host -p 8080`                           | Host with a temporary tunnel (Option 1). |
+| 2    | Terminal 2 | `devbridge host <tunnelId>`                        | Host with an existing tunnel (Option 2). |
+| 3    | Browser    | `https://<tunnelId>.<clusterId>.myhuaweicloud.com` | Access the tunnel URL directly.          |
 
 ## FAQ
 

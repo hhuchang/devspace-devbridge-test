@@ -1,5 +1,5 @@
 ---
-title: Host: expose local services
+title: "Host: expose local services"
 description: Use Host mode to connect one or more local ports to DevBridge.
 ---
 
@@ -71,10 +71,10 @@ https://<tunnelId>.<clusterId>.myhuaweicloud.com
 
 In addition to the local mappings set up by Connect, you can open the URL directly in a browser to access the hosted service. The access behavior depends on the port's anonymous-access policy:
 
-| Port policy                        | Browser behavior                                                                          |
-| ---------------------------------- | ----------------------------------------------------------------------------------------- |
-| Allows anonymous access (`-a`)     | Open the URL directly to access it — no DevBridge identity or credentials required.       |
-| Denies anonymous access (default)  | You're redirected to a sign-in page; complete authentication to obtain credentials, then you can access it. |
+| Port policy                       | Browser behavior                                                                                            |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Allows anonymous access (`-a`)    | Open the URL directly to access it — no DevBridge identity or credentials required.                         |
+| Denies anonymous access (default) | You're redirected to a sign-in page; complete authentication to obtain credentials, then you can access it. |
 
 ::: tip Two ways to access
 

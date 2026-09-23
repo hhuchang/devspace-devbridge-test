@@ -31,17 +31,17 @@ Both Host and Connect initiate outbound connections to DevBridge, so the device 
 
 ## Core concepts
 
-| Concept        | Description                                                                    |
-| -------------- | ------------------------------------------------------------------------------ |
-| Tunnel ID      | An eight-character lowercase Base32 identifier used in CLI commands and tunnel URLs. |
-| Cluster        | The isolation and routing scope the tunnel belongs to.                         |
-| Port           | A port the tunnel is allowed to forward, from `1` to `65535`.                  |
-| Protocol       | The application protocol for a port: `http`, `https`, or `auto`.               |
-| Expiration | How long the tunnel stays valid; once it expires, it can no longer be used. |
-| Host           | The side that hosts local services.                                            |
-| Connect        | The side that accesses remote services.                                        |
-| Host token     | A short-lived credential that only allows establishing Host connections.      |
-| Connect token  | A short-lived credential that only allows establishing Connect connections.   |
+| Concept       | Description                                                                          |
+| ------------- | ------------------------------------------------------------------------------------ |
+| Tunnel ID     | An eight-character lowercase Base32 identifier used in CLI commands and tunnel URLs. |
+| Cluster       | The isolation and routing scope the tunnel belongs to.                               |
+| Port          | A port the tunnel is allowed to forward, from `1` to `65535`.                        |
+| Protocol      | The application protocol for a port: `http`, `https`, or `auto`.                     |
+| Expiration    | How long the tunnel stays valid; once it expires, it can no longer be used.          |
+| Host          | The side that hosts local services.                                                  |
+| Connect       | The side that accesses remote services.                                              |
+| Host token    | A short-lived credential that only allows establishing Host connections.             |
+| Connect token | A short-lived credential that only allows establishing Connect connections.          |
 
 ## Key capabilities
 

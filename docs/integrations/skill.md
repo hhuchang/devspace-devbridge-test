@@ -32,22 +32,22 @@ An agent that has `huawei-cloud-find-skills` installed can search by keyword and
 
 The skill wraps the following operations, all executed through adapter functions that automatically accommodate different CLI versions:
 
-| Adapter function | CLI command           | Purpose                 |
-| ---------------- | --------------------- | ----------------------- |
-| `db_init`        | —                     | Verify the CLI is usable |
-| `db_create`      | `devbridge create`    | Create a tunnel         |
-| `db_port_create` | `devbridge port create` | Create a port         |
-| `db_host`        | `devbridge host`      | Host local services     |
-| `db_connect`     | `devbridge connect`   | Connect to a remote tunnel |
-| `db_list`        | `devbridge list`      | List tunnels            |
-| `db_show`        | `devbridge show`      | View tunnel details     |
-| `db_update`      | `devbridge update`    | Update a tunnel         |
-| `db_delete`      | `devbridge delete`    | Delete a tunnel         |
-| `db_port_list`   | `devbridge port list` | List ports              |
-| `db_port_delete` | `devbridge port delete` | Delete a port         |
-| `db_version`     | `devbridge version`   | View the CLI version    |
-| `db_auth_status` | `devbridge auth status` | View login status     |
-| `db_auth_login`  | `devbridge auth login` | Log in                  |
+| Adapter function | CLI command             | Purpose                    |
+| ---------------- | ----------------------- | -------------------------- |
+| `db_init`        | —                       | Verify the CLI is usable   |
+| `db_create`      | `devbridge create`      | Create a tunnel            |
+| `db_port_create` | `devbridge port create` | Create a port              |
+| `db_host`        | `devbridge host`        | Host local services        |
+| `db_connect`     | `devbridge connect`     | Connect to a remote tunnel |
+| `db_list`        | `devbridge list`        | List tunnels               |
+| `db_show`        | `devbridge show`        | View tunnel details        |
+| `db_update`      | `devbridge update`      | Update a tunnel            |
+| `db_delete`      | `devbridge delete`      | Delete a tunnel            |
+| `db_port_list`   | `devbridge port list`   | List ports                 |
+| `db_port_delete` | `devbridge port delete` | Delete a port              |
+| `db_version`     | `devbridge version`     | View the CLI version       |
+| `db_auth_status` | `devbridge auth status` | View login status          |
+| `db_auth_login`  | `devbridge auth login`  | Log in                     |
 
 ## Adapter layer
 
@@ -100,13 +100,13 @@ The agent uses the parameters you specify and defaults for the rest, without con
 
 ### Default parameters
 
-| Parameter       | Default               |
-| --------------- | --------------------- |
-| Tunnel name     | `dev-tunnel-<random>` |
-| Description     | DevBridge             |
-| Expiration      | 8 hours               |
-| Port            | 8080                  |
-| Protocol        | `http`                |
+| Parameter        | Default               |
+| ---------------- | --------------------- |
+| Tunnel name      | `dev-tunnel-<random>` |
+| Description      | DevBridge             |
+| Expiration       | 8 hours               |
+| Port             | 8080                  |
+| Protocol         | `http`                |
 | Anonymous access | Allowed               |
 
 ## Cleanup

@@ -1,5 +1,5 @@
 ---
-title: Connect: connect to remote services
+title: "Connect: connect to remote services"
 description: Use Connect mode to access remote ports in a DevBridge tunnel.
 ---
 

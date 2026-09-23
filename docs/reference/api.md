@@ -57,38 +57,38 @@ Failures use the corresponding HTTP 4xx or 5xx status code:
 Parameter-validation failures may include a `details` array, each item containing `code`, `target`, and `message`.
 Use the HTTP status and `error.code` to decide how to handle the error; `message` is for display only.
 
-| HTTP status | Common error codes             | Meaning                                                        |
-| ----------- | ------------------------------ | -------------------------------------------------------------- |
-| 400         | `40000`, `11001`               | Invalid parameter or port.                                     |
-| 401         | `40100`                        | Key missing, invalid, or the corresponding identity is unavailable. |
-| 403         | `40300`, `10005`, `12001`      | Scope not allowed, no access to the tunnel, or account disabled. |
-| 404         | `10001`, `10002`, `11003`      | Cluster, tunnel, or port not found.                            |
-| 409         | `10003`, `10007`, `11002`      | Tunnel ID, name, or port conflict.                             |
-| 410         | `10004`                        | Tunnel has expired.                                            |
-| 429         | `10006`, `11005`, `12002`      | Tunnel count, port count, or monthly traffic quota reached.    |
-| 429         | `42900`                        | Requests too frequent; slow down and retry with backoff.       |
-| 500         | `50000`, `30001`               | Internal processing or token generation failed.                |
-| 503         | `50300`                        | Service temporarily unavailable; retry later.                  |
+| HTTP status | Common error codes        | Meaning                                                             |
+| ----------- | ------------------------- | ------------------------------------------------------------------- |
+| 400         | `40000`, `11001`          | Invalid parameter or port.                                          |
+| 401         | `40100`                   | Key missing, invalid, or the corresponding identity is unavailable. |
+| 403         | `40300`, `10005`, `12001` | Scope not allowed, no access to the tunnel, or account disabled.    |
+| 404         | `10001`, `10002`, `11003` | Cluster, tunnel, or port not found.                                 |
+| 409         | `10003`, `10007`, `11002` | Tunnel ID, name, or port conflict.                                  |
+| 410         | `10004`                   | Tunnel has expired.                                                 |
+| 429         | `10006`, `11005`, `12002` | Tunnel count, port count, or monthly traffic quota reached.         |
+| 429         | `42900`                   | Requests too frequent; slow down and retry with backoff.            |
+| 500         | `50000`, `30001`          | Internal processing or token generation failed.                     |
+| 503         | `50300`                   | Service temporarily unavailable; retry later.                       |
 
 ## API overview
 
-| Method | Path                                   | Purpose                                             |
-| ------ | -------------------------------------- | --------------------------------------------------- |
-| GET    | `/auth/check`                          | Verify credentials.                                 |
-| POST   | `/tunnels`                             | Create a tunnel.                                    |
-| GET    | `/tunnels`                             | Query the current user's valid tunnels.             |
-| DELETE | `/tunnels`                             | Delete all of the current user's tunnels.           |
-| GET    | `/tunnels/{tunnelId}`                  | Query details and runtime status.                    |
-| PUT    | `/tunnels/{tunnelId}`                  | Update a tunnel.                                    |
-| DELETE | `/tunnels/{tunnelId}`                  | Delete a specific tunnel.                            |
-| POST   | `/tunnels/{tunnelId}/token?scope=host` | Issue a host or connect token.                      |
-| POST   | `/tunnels/upsert-with-token`           | Create or reuse by name and issue both tokens.       |
-| POST   | `/tunnels/{tunnelId}/ports`            | Create a port.                                      |
-| GET    | `/tunnels/{tunnelId}/ports`            | Query the port list.                                |
-| GET    | `/tunnels/{tunnelId}/ports/{port}`     | Query a port's details.                             |
-| PUT    | `/tunnels/{tunnelId}/ports/{port}`     | Update a port policy.                               |
-| DELETE | `/tunnels/{tunnelId}/ports/{port}`     | Delete a port.                                      |
-| GET    | `/limits`                              | Query limits and balance.                            |
+| Method | Path                                   | Purpose                                        |
+| ------ | -------------------------------------- | ---------------------------------------------- |
+| GET    | `/auth/check`                          | Verify credentials.                            |
+| POST   | `/tunnels`                             | Create a tunnel.                               |
+| GET    | `/tunnels`                             | Query the current user's valid tunnels.        |
+| DELETE | `/tunnels`                             | Delete all of the current user's tunnels.      |
+| GET    | `/tunnels/{tunnelId}`                  | Query details and runtime status.              |
+| PUT    | `/tunnels/{tunnelId}`                  | Update a tunnel.                               |
+| DELETE | `/tunnels/{tunnelId}`                  | Delete a specific tunnel.                      |
+| POST   | `/tunnels/{tunnelId}/token?scope=host` | Issue a host or connect token.                 |
+| POST   | `/tunnels/upsert-with-token`           | Create or reuse by name and issue both tokens. |
+| POST   | `/tunnels/{tunnelId}/ports`            | Create a port.                                 |
+| GET    | `/tunnels/{tunnelId}/ports`            | Query the port list.                           |
+| GET    | `/tunnels/{tunnelId}/ports/{port}`     | Query a port's details.                        |
+| PUT    | `/tunnels/{tunnelId}/ports/{port}`     | Update a port policy.                          |
+| DELETE | `/tunnels/{tunnelId}/ports/{port}`     | Delete a port.                                 |
+| GET    | `/limits`                              | Query limits and balance.                      |
 
 ## Create a tunnel
 
@@ -103,13 +103,13 @@ Content-Type: application/json
 }
 ```
 
-| Request field  | Type    | Required | Description                                                   |
-| -------------- | ------- | -------- | ------------------------------------------------------------- |
-| `name`         | string  | Yes      | 1–128 characters, unique per user.                            |
-| `description`  | string  | No       | Up to 512 characters.                                         |
-| `clusterId`    | string  | No       | Cluster ID for the current region; defaults to the server's default cluster if omitted. |
-| `expiration`   | integer | No       | Expiration in hours, default 72, range 1–720.                 |
-| `type`         | string  | No       | `bridge` or `env`, default `bridge`.                          |
+| Request field | Type    | Required | Description                                                                             |
+| ------------- | ------- | -------- | --------------------------------------------------------------------------------------- |
+| `name`        | string  | Yes      | 1–128 characters, unique per user.                                                      |
+| `description` | string  | No       | Up to 512 characters.                                                                   |
+| `clusterId`   | string  | No       | Cluster ID for the current region; defaults to the server's default cluster if omitted. |
+| `expiration`  | integer | No       | Expiration in hours, default 72, range 1–720.                                           |
+| `type`        | string  | No       | `bridge` or `env`, default `bridge`.                                                    |
 
 Success response:
 
