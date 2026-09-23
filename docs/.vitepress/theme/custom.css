@@ -110,12 +110,17 @@ body {
 }
 
 .VPNavBar {
-  background: rgb(255 255 255 / 92%);
-  backdrop-filter: blur(12px);
+  background: rgb(255 255 255 / 40%) !important;
+  -webkit-backdrop-filter: blur(4px) saturate(120%);
+  backdrop-filter: blur(4px) saturate(120%);
+}
+
+.VPNavBar .content-body {
+  background-color: transparent !important;
 }
 
 .dark .VPNavBar {
-  background: rgb(23 24 25 / 92%);
+  background: rgb(23 24 25 / 40%) !important;
 }
 
 .VPNavBarTitle .title {

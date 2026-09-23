@@ -46,6 +46,7 @@ const enSidebar = [
       { text: "REST API", link: "/reference/api" },
       { text: "Troubleshooting", link: "/reference/troubleshooting" },
       { text: "Changelog", link: "/changelog" },
+      { text: "Disclaimer", link: "/reference/disclaimer" },
     ],
   },
 ];
@@ -94,6 +95,7 @@ const zhSidebar = [
       { text: "REST API", link: "/zh/reference/api" },
       { text: "问题排查", link: "/zh/reference/troubleshooting" },
       { text: "更新日志", link: "/zh/changelog" },
+      { text: "免责声明", link: "/zh/reference/disclaimer" },
     ],
   },
 ];
