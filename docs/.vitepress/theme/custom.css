@@ -50,6 +50,52 @@
   letter-spacing: 0;
 }
 
+/* Thin scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-border);
+}
+
+/* 左侧栏：平时几乎透明，hover 才显示 */
+.VPSidebar::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.VPSidebar:hover::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+}
+
+.VPSidebar:hover::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-border);
+}
+
+.VPSidebar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.VPSidebar:hover {
+  scrollbar-color: var(--vp-c-divider) transparent;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--vp-c-divider) transparent;
+}
+
 html {
   scroll-padding-top: calc(var(--vp-nav-height) + 24px);
 }
