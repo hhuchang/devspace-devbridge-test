@@ -201,4 +201,7 @@ export default defineConfig({
     ["meta", { name: "theme-color", content: "#ffffff" }],
     ["meta", { name: "color-scheme", content: "light dark" }],
   ],
+  themeConfig: {
+    search: { provider: "local" },
+  },
 });
