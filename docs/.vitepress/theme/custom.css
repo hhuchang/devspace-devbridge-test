@@ -119,13 +119,16 @@ body {
 .VPSidebarItem.level-0 > .item .text {
   color: var(--vp-c-text-3);
   font-size: 12px;
-  font-weight: 650;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .VPSidebarItem.level-1 .text {
-  padding: 5px 10px;
-  font-size: 13px;
+  padding: 5px 8px;
+  font-size: 13.5px;
   line-height: 20px;
+  color: var(--vp-c-text-2);
+  font-weight: 450;
 }
 
 .VPSidebarItem.level-1 > .item {
@@ -133,16 +136,23 @@ body {
 }
 
 .VPSidebarItem.level-1 > .item:hover {
-  background: var(--vp-c-bg-soft);
+  background: transparent;
+}
+
+.VPSidebarItem.level-1 > .item:hover .text {
+  color: var(--vp-c-text-1);
 }
 
 .VPSidebarItem.level-1.is-active > .item {
-  background: var(--vp-c-brand-soft);
+  background: transparent;
 }
 
 .VPSidebarItem.level-1.is-active > .item .text {
   color: var(--vp-c-brand-1);
   font-weight: 600;
+  text-shadow:
+    -0.15px 0 0 currentColor,
+    0.15px 0 0 currentColor;
 }
 
 .VPSidebarItem.level-1 > .item .indicator {
