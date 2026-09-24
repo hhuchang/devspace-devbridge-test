@@ -28,25 +28,25 @@ The developer tunnel service (hereinafter referred to as the "Service") is provi
 
 3. **Compliance requirements**: You shall ensure that your use of the Service complies with the compliance requirements and security standards of your industry and organization, and **any liability arising from your failure to meet such compliance requirements shall be borne by you**.
 
-## III. Limitation of Liability
+## III. Limitation and Exemption of Liability
 
-All disclaimers and limitations of liability in this Disclaimer apply to the maximum extent permitted by applicable law; any liability that may not be excluded or limited under the law (including, but not limited to, liability for personal injury and liability for property damage caused by the Company's intent or gross negligence) is not affected by this Disclaimer.
+Liability that the Company is required by law to assume, including liability for personal injury caused to you and liability for property damage caused by the Company's willful misconduct or gross negligence, is not affected by this Disclaimer.
 
-1. **The Company assumes no liability for any indirect, incidental, special, or consequential losses arising from the Service** (including but not limited to loss of profits, business interruption, and loss of data).
+1. **To the maximum extent permitted by applicable law, the Company assumes no liability for any loss, damage, data loss, or loss of profits directly or indirectly caused by any of the following:**
 
-2. If the Service is provided free of charge, **the Company's liability arising from the Service shall be limited to the fees actually paid by you during your use of the Service (if no fees are paid, such limit shall be zero)**.
+   1. interruption, delay, suspension, or termination of the Service;
+   2. loss, corruption, leakage, or tampering of data during transmission;
+   3. network attacks (including but not limited to DDoS, intrusion, and hijacking), computer viruses, or third-party service failures;
+   4. fault, improper operation, or unlawful acts of users or third parties;
+   5. force majeure, including natural disasters, war, strikes, government actions, changes in laws, regulations or policies, and failure of basic telecommunications facilities.
 
-## IV. Force Majeure and Other Circumstances Not Attributable to the Company
+2. **Given that the Service is provided free of charge and you have paid no consideration, to the maximum extent permitted by applicable law, the Company's liability for any direct, indirect, incidental, special, consequential, or punitive damages arising from the use of or inability to use the Service is limited to the fees actually paid by you during your use of the Service.**
 
-1. If the Service is interrupted or the Company is unable to perform related obligations due to objective circumstances that are unforeseeable, unavoidable, and insurmountable (hereinafter collectively referred to as "force majeure"), including but not limited to **natural disasters, government actions, war, and changes in laws and regulations**, **the Company assumes no liability therefor**.
-
-2. If the Service is interrupted or the Company is unable to perform related obligations due to circumstances not caused by the Company's fault and not attributable to the Company, such as **network attacks or power or telecommunications failures**, **the Company assumes no liability therefor**.
-
-## V. Governing Law and Dispute Resolution
+## IV. Governing Law and Dispute Resolution
 
 This Disclaimer shall be governed by and construed in accordance with the laws of the People's Republic of China; if the Developer Service Agreement provides otherwise regarding governing law, dispute resolution, or jurisdiction, such provisions shall prevail.
 
-## VI. Miscellaneous
+## V. Miscellaneous
 
 1. This Disclaimer, together with the Developer Service Agreement, constitutes the complete agreement between you and the Company and has equal legal effect.
 
