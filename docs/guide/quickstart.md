@@ -38,7 +38,7 @@ devbridge host -p 8080 -e 8
 After Host starts successfully, it prints the tunnel ID and access URL. The tunnel URL uses the following format:
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 Keep the Host process running. If the network drops briefly, the CLI automatically tries to reconnect; press `Ctrl+C` to end this hosting session.

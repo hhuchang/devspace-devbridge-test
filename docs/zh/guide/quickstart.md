@@ -38,7 +38,7 @@ devbridge host -p 8080 -e 8
 Host 成功后会输出隧道 ID 和访问地址。隧道地址采用以下格式：
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 保持 Host 进程运行。网络短暂中断时，CLI 会自动尝试恢复连接；按 `Ctrl+C` 停止本次托管。

@@ -80,10 +80,10 @@ The echo service returns request details (method, path, headers, and so on) rath
 
 ```bash
 # Probe a tunnel URL, default interval 1000 ms
-devbridge ping https://<tunnelId>-8080.cn-north-4-bridge.myhuaweicloud.com
+devbridge ping https://<tunnelId>-8080.devbridge-s2.hwtunnel.com
 
 # Specify the probe interval (milliseconds)
-devbridge ping https://<tunnelId>-8080.cn-north-4-bridge.myhuaweicloud.com -i 500
+devbridge ping https://<tunnelId>-8080.devbridge-s2.hwtunnel.com -i 500
 ```
 
 You can also probe a local port (for example, after Connect sets up mappings):

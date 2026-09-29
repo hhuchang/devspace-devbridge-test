@@ -160,7 +160,7 @@ Host 是前台长运行命令。`-d` 和 `-e` 只在 Host 同时创建隧道时�
 示例：
 
 ```bash
-devbridge ping https://<tunnelId>-8080.cn-north-4-bridge.myhuaweicloud.com
+devbridge ping https://<tunnelId>-8080.devbridge-s2.hwtunnel.com
 devbridge ping http://127.0.0.1:8080 -i 3000
 ```
 

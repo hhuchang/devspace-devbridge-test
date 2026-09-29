@@ -66,7 +66,7 @@ This mode still queries the tunnel's port configuration through the API, but ski
 After Host succeeds, it prints the tunnel ID and access URL, in the following format:
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 In addition to the local mappings set up by Connect, you can open the URL directly in a browser to access the hosted service. The access behavior depends on the port's anonymous-access policy:
@@ -78,7 +78,7 @@ In addition to the local mappings set up by Connect, you can open the URL direct
 
 ::: tip Two ways to access
 
-- **Access the tunnel URL directly**: open `https://<tunnelId>.<clusterId>.myhuaweicloud.com` in a browser on any device. Best for quickly sharing and verifying.
+- **Access the tunnel URL directly**: open `https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com` in a browser on any device. Best for quickly sharing and verifying.
 - **Access via Connect**: run `devbridge connect <tunnelId>` on another device, then access `http://localhost:<port>`. Best when you need local port mappings.
 
 The two ways are equivalent and both reach the service on the Host device. See [Connect: connect to remote services](./connect.md).

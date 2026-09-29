@@ -72,7 +72,7 @@ devbridge host -p 8080 -d "tunnel description" -e 8
 After Host succeeds, it prints the tunnel ID and access URL, in the following format:
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 Note the `<tunnelId>` here; device B needs it to connect.

@@ -66,7 +66,7 @@ devbridge port create <tunnelId> -p 8080 --protocol http --deny-anonymous
 
 ### 浏览器访问行为
 
-在浏览器中直接打开隧道地址 `https://<tunnelId>.<clusterId>.myhuaweicloud.com` 时，行为取决于端口的匿名访问策略：
+在浏览器中直接打开隧道地址 `https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com` 时，行为取决于端口的匿名访问策略：
 
 - **允许匿名访问**：直接打开地址即可访问，不需要登录或凭证。
 - **禁止匿名访问**：跳转到登录页，完成认证获取凭证后即可访问。

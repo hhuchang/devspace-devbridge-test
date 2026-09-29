@@ -66,7 +66,7 @@ Anonymous access means a visitor who has the tunnel URL can access the port with
 
 ### Browser access behavior
 
-When you open the tunnel URL `https://<tunnelId>.<clusterId>.myhuaweicloud.com` directly in a browser, the behavior depends on the port's anonymous-access policy:
+When you open the tunnel URL `https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com` directly in a browser, the behavior depends on the port's anonymous-access policy:
 
 - **Allows anonymous access**: you can access it directly — no login or credentials required.
 - **Denies anonymous access**: you're redirected to a sign-in page; complete authentication to obtain credentials, then you can access it.

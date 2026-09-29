@@ -74,7 +74,7 @@ devbridge host -p 8080 -d "tunnel description" -e 8
 After Host succeeds, it prints the tunnel ID and access URL, in the following format:
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 ![Start Host with a temporary tunnel](/images/host-connect/host-temporary-tunnel.png)
@@ -128,7 +128,7 @@ Either way, Host keeps running in the foreground. Keep terminal 2 open; press `C
 The tunnel URL that Host prints looks like:
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 Open the URL directly in a browser on any device to access the local service. The behavior depends on the port's anonymous-access policy:
@@ -142,12 +142,12 @@ A port's anonymous-access policy is set at creation time with `-a` or `--deny-an
 
 ## Quick reference
 
-| Step | Terminal   | Command                                            | Description                              |
-| ---- | ---------- | -------------------------------------------------- | ---------------------------------------- |
-| 1    | Terminal 1 | `python3 -m http.server 8080`                      | Start the local HTTP service.            |
-| 2    | Terminal 2 | `devbridge host -p 8080`                           | Host with a temporary tunnel (Option 1). |
-| 2    | Terminal 2 | `devbridge host <tunnelId>`                        | Host with an existing tunnel (Option 2). |
-| 3    | Browser    | `https://<tunnelId>.<clusterId>.myhuaweicloud.com` | Access the tunnel URL directly.          |
+| Step | Terminal   | Command                                               | Description                              |
+| ---- | ---------- | ----------------------------------------------------- | ---------------------------------------- |
+| 1    | Terminal 1 | `python3 -m http.server 8080`                         | Start the local HTTP service.            |
+| 2    | Terminal 2 | `devbridge host -p 8080`                              | Host with a temporary tunnel (Option 1). |
+| 2    | Terminal 2 | `devbridge host <tunnelId>`                           | Host with an existing tunnel (Option 2). |
+| 3    | Browser    | `https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com` | Access the tunnel URL directly.          |
 
 ## FAQ
 

@@ -160,7 +160,7 @@ Sends HTTP ping probes to a URI to check the connectivity and latency of a tunne
 Examples:
 
 ```bash
-devbridge ping https://<tunnelId>-8080.cn-north-4-bridge.myhuaweicloud.com
+devbridge ping https://<tunnelId>-8080.devbridge-s2.hwtunnel.com
 devbridge ping http://127.0.0.1:8080 -i 3000
 ```
 

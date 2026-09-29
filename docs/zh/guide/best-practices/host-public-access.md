@@ -74,7 +74,7 @@ devbridge host -p 8080 -d "隧道描述信息" -e 8
 Host 成功后会输出隧道 ID 和访问地址，形如：
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 ![使用临时隧道启动 Host](/images/host-connect/host-temporary-tunnel.png)
@@ -129,7 +129,7 @@ https://<tunnelId>.<clusterId>.myhuaweicloud.com
 Host 输出的隧道地址形如：
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 在任意设备的浏览器中直接打开该地址即可访问本地服务。访问行为取决于端口的匿名访问策略：
@@ -143,12 +143,12 @@ https://<tunnelId>.<clusterId>.myhuaweicloud.com
 
 ## 完整流程速查
 
-| 步骤 | 终端   | 命令                                               | 说明                     |
-| ---- | ------ | -------------------------------------------------- | ------------------------ |
-| 1    | 终端 1 | `python3 -m http.server 8080`                      | 启动本地 HTTP 服务。     |
-| 2    | 终端 2 | `devbridge host -p 8080`                           | 临时隧道托管（方式一）。 |
-| 2    | 终端 2 | `devbridge host <tunnelId>`                        | 已有隧道托管（方式二）。 |
-| 3    | 浏览器 | `https://<tunnelId>.<clusterId>.myhuaweicloud.com` | 直接访问隧道地址。       |
+| 步骤 | 终端   | 命令                                                  | 说明                     |
+| ---- | ------ | ----------------------------------------------------- | ------------------------ |
+| 1    | 终端 1 | `python3 -m http.server 8080`                         | 启动本地 HTTP 服务。     |
+| 2    | 终端 2 | `devbridge host -p 8080`                              | 临时隧道托管（方式一）。 |
+| 2    | 终端 2 | `devbridge host <tunnelId>`                           | 已有隧道托管（方式二）。 |
+| 3    | 浏览器 | `https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com` | 直接访问隧道地址。       |
 
 ## 常见问题
 

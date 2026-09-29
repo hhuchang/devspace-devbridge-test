@@ -80,10 +80,10 @@ echo 服务返回的是请求详情（方法、路径、请求头等），与 `p
 
 ```bash
 # 对隧道地址发起探测，默认 1000ms 间隔
-devbridge ping https://<tunnelId>-8080.cn-north-4-bridge.myhuaweicloud.com
+devbridge ping https://<tunnelId>-8080.devbridge-s2.hwtunnel.com
 
 # 指定探测间隔（毫秒）
-devbridge ping https://<tunnelId>-8080.cn-north-4-bridge.myhuaweicloud.com -i 500
+devbridge ping https://<tunnelId>-8080.devbridge-s2.hwtunnel.com -i 500
 ```
 
 也可以探测本地端口（例如 Connect 建立映射后）：

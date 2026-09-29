@@ -73,7 +73,7 @@ devbridge host -p 8080 -d "隧道描述信息" -e 8
 Host 成功后会输出隧道 ID 和访问地址，形如：
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 记下这里的 `<tunnelId>`，设备 B 连接时需要使用。

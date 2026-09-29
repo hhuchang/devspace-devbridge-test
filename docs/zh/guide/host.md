@@ -67,7 +67,7 @@ devbridge host <tunnelId> --api-key <key>
 Host 成功后会输出隧道 ID 和访问地址，形如：
 
 ```text
-https://<tunnelId>.<clusterId>.myhuaweicloud.com
+https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com
 ```
 
 除了通过 Connect 建立本地映射访问外，也可以直接在浏览器中打开该地址访问托管的服务。访问行为取决于端口的匿名访问策略：
@@ -79,7 +79,7 @@ https://<tunnelId>.<clusterId>.myhuaweicloud.com
 
 ::: tip 两种访问方式
 
-- **直接访问隧道地址**：在任意设备浏览器中打开 `https://<tunnelId>.<clusterId>.myhuaweicloud.com`，适合快速分享和验证。
+- **直接访问隧道地址**：在任意设备浏览器中打开 `https://<tunnelId>-<port>.devbridge-s2.hwtunnel.com`，适合快速分享和验证。
 - **通过 Connect 访问**：在另一台设备运行 `devbridge connect <tunnelId>`，再访问 `http://localhost:<port>`，适合需要本地端口映射的场景。
 
 两种方式等价，都能访问 Host 托管的服务。详见[Connect：连接远程服务](./connect.md)。
