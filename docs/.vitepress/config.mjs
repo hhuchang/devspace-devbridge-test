@@ -47,7 +47,7 @@ const enSidebar = [
       { text: "Troubleshooting", link: "/reference/troubleshooting" },
       { text: "Changelog", link: "/changelog" },
       { text: "Disclaimer", link: "/reference/disclaimer" },
-      { text: "Contributing", link: "/reference/CONTRIBUTING" },
+      { text: "Contributing", link: "/reference/contributing" },
     ],
   },
 ];
@@ -97,7 +97,7 @@ const zhSidebar = [
       { text: "问题排查", link: "/zh/reference/troubleshooting" },
       { text: "更新日志", link: "/zh/changelog" },
       { text: "免责声明", link: "/zh/reference/disclaimer" },
-      { text: "贡献指南", link: "/zh/reference/CONTRIBUTING" },
+      { text: "贡献指南", link: "/zh/reference/contributing" },
     ],
   },
 ];
