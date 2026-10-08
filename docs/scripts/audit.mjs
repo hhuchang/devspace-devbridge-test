@@ -101,9 +101,7 @@ if (remaining.length === 0) {
       `✅ npm audit passed — ${ignoredNames.length} package(s) with ignored advisories (no fix available):`,
     );
     console.log(`   ${ignoredNames.join(", ")}`);
-    console.log(
-      `   Ignored: ${[...IGNORED_ADVISORIES].join(", ")}`,
-    );
+    console.log(`   Ignored: ${[...IGNORED_ADVISORIES].join(", ")}`);
   } else {
     console.log("✅ npm audit passed — no vulnerabilities found.");
   }
