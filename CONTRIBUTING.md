@@ -18,8 +18,6 @@
 - [Pull Request 流程](#pull-request-流程)
 - [CLI 开发指南](#cli-开发指南)
 - [Go SDK 开发指南](#go-sdk-开发指南)
-- [新增文档页面](#新增文档页面)
-- [内容准则](#内容准则)
 - [Issue 指南](#issue-指南)
 - [发布流程](#发布流程)
 - [常见问题](#常见问题)
@@ -29,7 +27,7 @@
 
 ## 项目结构
 
-DevBridge 是一个 Monorepo，三个组件各自使用独立的首层目录和工具链：
+DevBridge 是一个 Monorepo，两个组件各自使用独立的首层目录和工具链：
 
 ```text
 .
@@ -50,12 +48,6 @@ DevBridge 是一个 Monorepo，三个组件各自使用独立的首层目录和�
 │   ├── connect.go        # 远程连接
 │   ├── port.go           # 端口转发
 │   └── go.mod            # module github.com/huaweicloud/devspace-devbridge/go-sdk
-├── docs/                 # VitePress 文档站点
-│   ├── guide/            # 按用户任务组织的指南
-│   ├── reference/        # CLI、API 和故障排查参考
-│   ├── integrations/     # 集成说明
-│   ├── .vitepress/       # VitePress 配置与主题
-│   └── package.json      # 文档构建与校验命令
 ├── LICENSE               # Apache 2.0
 └── README.md             # 仓库总览
 ```
@@ -72,8 +64,6 @@ DevBridge 是一个 Monorepo，三个组件各自使用独立的首层目录和�
 | ----------- | ---------- | ------------------ |
 | **Git**     | 2.20       | 版本控制           |
 | **Go**      | 1.26（CLI）/ 1.22（SDK） | Go 编译与测试 |
-| **Node.js** | 24         | 文档构建与校验     |
-| **npm**     | 随 Node.js 附带 | 依赖管理      |
 
 ### 安装 Go（>= 1.26）
 
@@ -103,32 +93,6 @@ go version
 
 > **仅修改 Go SDK 的贡献者**：SDK 要求 Go >= 1.22，安装 1.22 即可。但如果同时需要构建 CLI，请安装 1.26。
 
-### 安装 Node.js（>= 24）
-
-文档站点要求 Node.js 24 或更高版本。
-
-```bash
-# 方式一：官方二进制包
-# 前往 https://nodejs.org/ 下载 LTS 版本（>= 24）
-
-# 方式二：nvm（推荐，可切换版本）
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-nvm install 24
-nvm use 24
-
-# 方式三：包管理器
-# macOS:  brew install node@24
-# Ubuntu: 参见 NodeSource 官方安装脚本
-```
-
-验证安装：
-
-```bash
-node --version
-# 期望输出: v24.x.x
-npm --version
-```
-
 ### 安装 golangci-lint（可选，CLI 贡献者推荐）
 
 ```bash
@@ -149,7 +113,6 @@ golangci-lint version
 ```bash
 git --version      # >= 2.20
 go version         # >= 1.26（CLI）/ >= 1.22（SDK）
-node --version     # >= 24
 ```
 
 全部通过后，进入 [快速开始](#快速开始)。
@@ -180,9 +143,6 @@ cd cli && go mod tidy
 
 # Go SDK
 cd go-sdk && go mod tidy
-
-# 文档
-cd docs && npm ci
 ```
 
 ### 4. 选择你要修改的组件，本地构建验证
@@ -194,10 +154,6 @@ cd cli && make build-dev
 
 # Go SDK
 cd go-sdk && go build ./...
-
-# 文档
-cd docs && npm run docs:dev
-# 文档本地预览：http://127.0.0.1:5173/devspace-devbridge/
 ```
 
 ---
@@ -218,39 +174,10 @@ cd docs && npm run docs:dev
 
 > **golangci-lint 配置**：当前 `cli/.golangci.yml` 禁用了 `errcheck`、`gosec`、`lll` 等严格 linter。新增代码应尽量遵循这些规则的精神，即使工具不强制。
 
-### Markdown 文档（docs/）
-
-| 规则           | 工具 / 说明                                                              |
-| -------------- | ------------------------------------------------------------------------ |
-| Markdown lint  | `markdownlint-cli2`，配置见 `docs/.markdownlint-cli2.mjs`               |
-| 格式化         | `prettier --check .`，配置见 `docs/package.json`（proseWrap: preserve） |
-| 构建验证       | `vitepress build .`，确保无死链、无 frontmatter 错误                     |
-
-当前 markdownlint 规则：
-
-- MD013（行长度限制）关闭——不强制换行宽度。
-- MD024（重复标题）仅检查同级重复——允许不同层级使用相同标题。
-- MD025（首个标题级别）关闭。
-- MD033（内联 HTML）关闭——VitePress 组件需要内联 HTML。
-- MD036（强调即标题）关闭。
-
-一键检查（提交前必跑）：
-
-```bash
-cd docs && npm run check
-# 等价于: markdownlint-cli2 + prettier --check + vitepress build
-```
-
-如需自动修复格式问题：
-
-```bash
-cd docs && npm run format   # prettier --write .
-```
-
 ### 通用约定
 
 - **行尾换行**：文件末尾保留一个空行（POSIX 惯例）。
-- **缩进**：Go 用 tab，Markdown/YAML/JS 用 2 空格。
+- **缩进**：Go 用 tab。
 - **编码**：UTF-8，不使用 BOM。
 
 ---
@@ -286,16 +213,6 @@ go vet ./...      # 静态检查
 
 新增公开 API 时须附带对应的 `_test.go` 文件。
 
-### 文档测试
-
-```bash
-cd docs
-npm run check     # markdownlint + prettier --check + vitepress build
-npm run audit     # 依赖安全审计
-```
-
-三者全部通过后方可提交。`npm run check` 会捕获死链、frontmatter 语法错误、Markdown 格式问题。
-
 ---
 
 ## 分支策略
@@ -306,7 +223,6 @@ npm run audit     # 依赖安全审计
 | `develop` | 开发集成分支 | ❌ 仅通过 PR 合并 |
 | `feat/*`  | 新功能分支   | ✅（个人 Fork）   |
 | `fix/*`   | Bug 修复分支 | ✅（个人 Fork）   |
-| `docs/*`  | 文档变更分支 | ✅（个人 Fork）   |
 
 **PR 目标分支**：默认为 `develop`。仅在发布窗口期由维护者合并至 `master`。
 
@@ -338,7 +254,6 @@ npm run audit     # 依赖安全审计
 | ------ | ---------- |
 | `cli`  | CLI 工具   |
 | `sdk`  | Go SDK     |
-| `docs` | 文档站点   |
 | `ci`   | CI/CD 配置 |
 
 ### 示例
@@ -346,7 +261,6 @@ npm run audit     # 依赖安全审计
 ```text
 feat(cli): 支持隧道重连自动恢复
 fix(sdk): 修复 WebSocket 断线后 goroutine 泄漏
-docs: 更新快速入门中的安装步骤
 chore(ci): 升级 actions/checkout 至 v7
 ```
 
@@ -372,9 +286,6 @@ cd cli && golangci-lint run && go vet ./... && make test && make build-dev
 
 # 修改了 Go SDK
 cd go-sdk && go vet ./... && go test ./... && go build ./...
-
-# 修改了文档
-cd docs && npm run check
 ```
 
 ### 3. 提交并推送
@@ -392,15 +303,14 @@ git push origin feat/your-feature
   - **变更说明**：做了什么
   - **关联 Issue**：如 `Closes #123`
   - **测试方式**：如何验证
-  - **截图**：CLI 输出变更或文档页面变更请附截图
+  - **截图**：CLI 输出变更请附截图
 
 ### 5. PR 审查清单
 
 - [ ] CI 全部通过
 - [ ] 新功能附带测试
 - [ ] 无引入新的 lint 警告
-- [ ] API 或 CLI 行为变更已同步更新文档
-- [ ] 依赖变更通过 `npm run audit`（文档）或 `go mod tidy`（Go）
+- [ ] 依赖变更通过 `go mod tidy`
 
 ### CI 自动检查
 
@@ -410,7 +320,6 @@ PR 创建后将自动触发以下 CI：
 | --------------- | ------------------------- | ---------------------------------------------------- |
 | `build-cli.yml` | PR 到 develop/main/master | GoReleaser snapshot 编译验证                         |
 | `build-sdk.yml` | PR 修改 `go-sdk/**`       | `go build` + `go vet` + `go test`                    |
-| `pages.yml`     | push 到 develop/master    | markdownlint + prettier + VitePress 构建 + npm audit |
 
 ---
 
@@ -489,30 +398,13 @@ SDK 发布使用 `go-sdk/v*` 前缀的 tag（如 `go-sdk/v0.2.1`）。tag 一旦
 
 ---
 
-## 新增文档页面
-
-1. 在 `docs/guide/` 或 `docs/reference/` 中新增 Markdown 文件
-2. 在 `docs/.vitepress/config.mjs` 的 `sidebar` 中加入入口
-3. 使用相对链接连接相关主题
-4. 在 `docs/` 中运行 `npm run check` 确保通过
-
----
-
-## 内容准则
-
-- CLI 命令描述以 DevBridge CLI 的实际行为为准——修改 CLI 行为后，应在同一 PR 中更新对应文档
-- 隧道、端口、Host 和 Connect 的说明以 DevBridge 已发布能力为准
-- 不要直接编辑 `docs/.vitepress/dist`，它是构建产物且不会提交
-
----
-
 ## Issue 指南
 
 ### Bug 报告
 
 请包含以下信息：
 
-- **环境**：操作系统、Go 版本（CLI/SDK）或 Node.js 版本（文档）
+- **环境**：操作系统、Go 版本（CLI/SDK）
 - **DevBridge 版本**：`devbridge version` 的输出
 - **复现步骤**：逐步可操作
 - **期望行为**：应该发生什么
@@ -549,11 +441,6 @@ SDK 发布使用 `go-sdk/v*` 前缀的 tag（如 `go-sdk/v0.2.1`）。tag 一旦
 2. Go module proxy（proxy.golang.org / goproxy.cn）自动索引
 3. `build-sdk.yml` 验证构建并可选上传源码包到 GitCode
 
-### 文档发布
-
-1. PR 合并到 `develop` 或 `master` 后，`pages.yml` 自动触发
-2. 执行 `npm run check` + `npm run audit`，通过后构建 VitePress 并部署到 GitHub Pages
-
 ---
 
 ## 常见问题
@@ -564,32 +451,19 @@ SDK 发布使用 `go-sdk/v*` 前缀的 tag（如 `go-sdk/v0.2.1`）。tag 一旦
 
 如果仅修改 Go SDK，可在 `go-sdk/` 目录下单独构建，该模块要求 Go >= 1.22。
 
-### npm run check 报错 "markdownlint-cli2: command not found"
-
-未安装文档依赖。在 `docs/` 目录下执行 `npm ci` 安装。
-
-### npm run check 报错 prettier 格式不一致
-
-运行 `npm run format` 自动修复格式问题，然后重新提交。
-
-### vitepress build 报错 frontmatter 解析失败
-
-检查 Markdown 文件顶部的 YAML frontmatter，确保冒号后有空格、缩进一致。常见错误是半角冒号紧贴值（如 `title:xxx` 应为 `title: xxx`）。
-
 ### make build-dev 报错找不到 go-sdk
 
 CLI 通过 `replace` 指令引用本地 `../go-sdk`。确保在 Monorepo 根目录下克隆了完整仓库，而非仅克隆 `cli/` 子目录。
 
 ### PR CI 失败但本地通过
 
-确认本地工具链版本与 CI 一致：Go 1.26（CLI）/ 1.22（SDK）、Node.js 24。版本差异可能导致本地通过但 CI 失败。
+确认本地工具链版本与 CI 一致：Go 1.26（CLI）/ 1.22（SDK）。版本差异可能导致本地通过但 CI 失败。
 
 ---
 
 ## 联系方式
 
 - **Issue**：[GitHub Issues](https://github.com/huaweicloud/devspace-devbridge/issues)
-- **在线文档**：<https://huaweicloud.github.io/devspace-devbridge/>
 
 ---
 
