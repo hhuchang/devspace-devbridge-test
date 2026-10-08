@@ -1,3 +1,8 @@
+---
+title: 贡献指南
+description: 参与 DevBridge 开源开发——环境配置、代码规范、测试、分支策略、提交规范与 PR 流程。
+---
+
 # 贡献指南
 
 感谢你对 DevBridge 的关注！欢迎提交 Issue、Pull Request 或参与讨论。
@@ -60,10 +65,10 @@ DevBridge 是一个 Monorepo，两个组件各自使用独立的首层目录和�
 
 ### 工具链版本要求
 
-| 组件        | 最低版本   | 用途               |
-| ----------- | ---------- | ------------------ |
-| **Git**     | 2.20       | 版本控制           |
-| **Go**      | 1.26（CLI）/ 1.22（SDK） | Go 编译与测试 |
+| 组件    | 最低版本                 | 用途          |
+| ------- | ------------------------ | ------------- |
+| **Git** | 2.20                     | 版本控制      |
+| **Go**  | 1.26（CLI）/ 1.22（SDK） | Go 编译与测试 |
 
 ### 安装 Go（>= 1.26）
 
@@ -162,15 +167,15 @@ cd go-sdk && go build ./...
 
 ### Go 代码（cli/ 和 go-sdk/）
 
-| 规则               | 工具 / 说明                                                       |
-| ------------------ | ----------------------------------------------------------------- |
-| 格式化             | `gofmt -s -w .` 或 `go fmt ./...`，提交前必须执行                 |
-| 静态检查           | `go vet ./...`                                                    |
-| Lint               | `golangci-lint run`（CLI 使用 `cli/.golangci.yml` 配置）          |
-| 命名               | 导出标识符用 PascalCase，未导出用 camelCase，包名全小写单单词     |
-| 导入顺序           | 标准库 → 空行 → 第三方库 → 空行 → 本项目内部包，用 `goimports` 排序 |
-| 错误处理           | 不忽略 error 返回值，不使用 `_` 丢弃 error                        |
-| 注释               | 导出函数/类型须有 `// Name ...` 格式的文档注释                    |
+| 规则     | 工具 / 说明                                                         |
+| -------- | ------------------------------------------------------------------- |
+| 格式化   | `gofmt -s -w .` 或 `go fmt ./...`，提交前必须执行                   |
+| 静态检查 | `go vet ./...`                                                      |
+| Lint     | `golangci-lint run`（CLI 使用 `cli/.golangci.yml` 配置）            |
+| 命名     | 导出标识符用 PascalCase，未导出用 camelCase，包名全小写单单词       |
+| 导入顺序 | 标准库 → 空行 → 第三方库 → 空行 → 本项目内部包，用 `goimports` 排序 |
+| 错误处理 | 不忽略 error 返回值，不使用 `_` 丢弃 error                          |
+| 注释     | 导出函数/类型须有 `// Name ...` 格式的文档注释                      |
 
 > **golangci-lint 配置**：当前 `cli/.golangci.yml` 禁用了 `errcheck`、`gosec`、`lll` 等严格 linter。新增代码应尽量遵循这些规则的精神，即使工具不强制。
 
@@ -205,11 +210,11 @@ go vet ./...      # 静态检查
 
 当前已有测试文件：
 
-| 文件                | 覆盖范围              |
-| ------------------- | --------------------- |
-| `tunnel_test.go`    | 隧道创建与管理        |
-| `websocket_test.go` | WebSocket 连接与重连  |
-| `example_test.go`   | 公开 API 用法示例     |
+| 文件                | 覆盖范围             |
+| ------------------- | -------------------- |
+| `tunnel_test.go`    | 隧道创建与管理       |
+| `websocket_test.go` | WebSocket 连接与重连 |
+| `example_test.go`   | 公开 API 用法示例    |
 
 新增公开 API 时须附带对应的 `_test.go` 文件。
 
@@ -250,11 +255,11 @@ go vet ./...      # 静态检查
 
 ### scope 取值
 
-| scope  | 对应组件   |
-| ------ | ---------- |
-| `cli`  | CLI 工具   |
-| `sdk`  | Go SDK     |
-| `ci`   | CI/CD 配置 |
+| scope | 对应组件   |
+| ----- | ---------- |
+| `cli` | CLI 工具   |
+| `sdk` | Go SDK     |
+| `ci`  | CI/CD 配置 |
 
 ### 示例
 
@@ -316,10 +321,10 @@ git push origin feat/your-feature
 
 PR 创建后将自动触发以下 CI：
 
-| 工作流          | 触发条件                  | 检查内容                                             |
-| --------------- | ------------------------- | ---------------------------------------------------- |
-| `build-cli.yml` | PR 到 develop/main/master | GoReleaser snapshot 编译验证                         |
-| `build-sdk.yml` | PR 修改 `go-sdk/**`       | `go build` + `go vet` + `go test`                    |
+| 工作流          | 触发条件                  | 检查内容                          |
+| --------------- | ------------------------- | --------------------------------- |
+| `build-cli.yml` | PR 到 develop/main/master | GoReleaser snapshot 编译验证      |
+| `build-sdk.yml` | PR 修改 `go-sdk/**`       | `go build` + `go vet` + `go test` |
 
 ---
 
