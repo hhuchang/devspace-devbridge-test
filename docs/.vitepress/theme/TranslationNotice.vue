@@ -24,7 +24,8 @@ function dismiss() {
 <template>
   <div v-if="visible" class="translation-notice">
     <span class="translation-notice-text">
-      ⚠ Some content in this documentation may be machine-translated or AI-translated.
+      ⚠ Some content in this documentation may be machine-translated or
+      AI-translated.
     </span>
     <button
       class="translation-notice-close"

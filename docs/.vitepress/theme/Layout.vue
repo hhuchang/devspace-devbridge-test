@@ -34,7 +34,7 @@ watch(
   () => {
     target.value = null;
     nextTick(() => setTimeout(setupTarget, 0));
-  }
+  },
 );
 
 onBeforeUnmount(() => {
