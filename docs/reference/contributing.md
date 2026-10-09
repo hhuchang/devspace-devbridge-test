@@ -22,6 +22,7 @@ By participating in this project, you agree to abide by the Apache License 2.0 t
 - [Commit conventions](#commit-conventions)
 - [Pull Request workflow](#pull-request-workflow)
 - [CLI development guide](#cli-development-guide)
+- [Environment and configuration](#environment-and-configuration)
 - [Go SDK development guide](#go-sdk-development-guide)
 - [Issue guidelines](#issue-guidelines)
 - [Release process](#release-process)
@@ -375,6 +376,113 @@ make build-all    # builds 6 platform binaries + SHA256 checksums
 Version numbers, server addresses, and other parameters are injected at build time via `-ldflags` (see `LDFLAGS` in `Makefile`). When modifying these injected variables, update both `Makefile` and `.goreleaser.yaml`.
 
 ---
+
+---
+
+## Environment and configuration
+
+DevBridge uses a layered configuration model. Each layer can override the one below:
+
+```text
+CLI config file  >  ldflags (build-time)  >  hardcoded defaults
+SDK Config struct >  environment variable  >  hardcoded defaults
+```
+
+### Environment variables
+
+| Variable         | Scope | Purpose                                       | Required? |
+| ---------------- | ----- | --------------------------------------------- | --------- |
+| `HW_API_KEY`     | Both  | API key for REST API authentication           | Yes       |
+| `DEVBRIDGE_LANG` | CLI   | Override interface language (e.g. `zh`, `en`) | No        |
+
+```bash
+export HW_API_KEY="devbridge_your_api_key"
+export DEVBRIDGE_LANG=zh
+```
+
+### CLI configuration file
+
+The CLI stores user-level settings in `~/.huawei/devbridge/config.yaml` (YAML, file mode `0600`). Use the `config` subcommand to manage gateway addresses:
+
+```bash
+# View current configuration
+devbridge config get
+
+# Override the WebSocket gateway address (host:port)
+devbridge config set --gateway-addr gateway.example.com:443
+
+# Override the WebSocket gateway SNI host
+devbridge config set --gateway-host example.com
+
+# Restore build-time defaults
+devbridge config unset
+```
+
+Config file values take precedence over the ldflags-injected defaults.
+
+### Build-time address injection (ldflags)
+
+The REST API base URL, login page URL, and WebSocket gateway address are injected at build time via `-ldflags`. The Makefile exposes four variables:
+
+| Makefile variable | Injected into                | Purpose                       |
+| ----------------- | ---------------------------- | ----------------------------- |
+| `SERVER_DOMAIN`   | `config.DefaultServerDomain` | REST API server domain        |
+| `LOGIN_URL`       | `auth.LoginURL`              | Browser login page URL        |
+| `GATEWAY_ADDR`    | `config.ServerAddr`          | WebSocket gateway (host:port) |
+| `CLUSTER_DOMAIN`  | `config.ServerHost`          | WebSocket gateway SNI host    |
+
+The full REST API base URL is `SERVER_DOMAIN + /open-api-inner/v1/relay-controller`.
+
+Three build targets provide three address sets:
+
+| Variable         | `build-dev` / `build-test`                      | `build-prod`                                 |
+| ---------------- | ----------------------------------------------- | -------------------------------------------- |
+| `SERVER_DOMAIN`  | `http://relay-dev-local.tailb4159e.ts.net:8443` | `https://bridge.developer.myhuaweicloud.com` |
+| `LOGIN_URL`      | `https://devstation.ulanqab.huawei.com`         | `https://devstation.connect.huaweicloud.com` |
+| `GATEWAY_ADDR`   | `gateway.devbridge-s2.hwtunnel.com`             | `gateway.devbridge-s2.hwtunnel.com:443`      |
+| `CLUSTER_DOMAIN` | `devbridge-s2.hwtunnel.com`                     | `devbridge-s2.hwtunnel.com`                  |
+
+To target a custom environment, override any variable:
+
+```bash
+make build-dev SERVER_DOMAIN=https://my-test-server.com LOGIN_URL=https://my-login.com
+```
+
+When modifying these variables, update both `Makefile` and `.goreleaser.yaml` (or `.goreleaser.test.yaml`).
+
+### Go SDK configuration
+
+Third-party applications configure the SDK via the `Config` struct. Empty fields fall back to environment variables and then to hardcoded defaults:
+
+```go
+import devbridge "github.com/huaweicloud/devspace-devbridge/go-sdk"
+
+cfg := devbridge.Config{
+    APIBaseURL:  devbridge.DefaultAPIBaseURL,  // REST API base URL
+    GatewayAddr: devbridge.DefaultGatewayAddr, // WebSocket gateway (host:port)
+    GatewayHost: devbridge.DefaultGatewayHost, // WebSocket gateway SNI host
+    APIKey:      "",                            // falls back to HW_API_KEY env var
+}
+client := devbridge.New(cfg)
+```
+
+SDK default constants:
+
+| Constant             | Value                                                                           |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `DefaultAPIBaseURL`  | `https://bridge.developer.myhuaweicloud.com/open-api-inner/v1/relay-controller` |
+| `DefaultGatewayAddr` | `gateway.devbridge-s2.hwtunnel.com:443`                                         |
+| `DefaultGatewayHost` | `devbridge-s2.hwtunnel.com`                                                     |
+| `DefaultClusterID`   | `devbridge-s2` (overridable via ldflags)                                        |
+
+### Relationship to the API documentation
+
+The REST API base URL documented in [REST API](/reference/api) corresponds to the prod build value of `SERVER_DOMAIN` + `RelayControllerPath`:
+
+```text
+https://bridge.developer.myhuaweicloud.com  +  /open-api-inner/v1/relay-controller
+= https://bridge.developer.myhuaweicloud.com/open-api-inner/v1/relay-controller
+```
 
 ## Go SDK development guide
 
