@@ -24,7 +24,7 @@ function dismiss() {
 <template>
   <div v-if="visible" class="translation-notice">
     <span class="translation-notice-text">
-      ⚠ Some content in this documentation may be machine or AI translated.
+      ⚠ Some content in this documentation may be machine-translated or AI-translated.
     </span>
     <button
       class="translation-notice-close"
@@ -41,7 +41,7 @@ function dismiss() {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 0 24px 16px;
+  margin: 0 0 16px;
   padding: 8px 16px;
   border-radius: 8px;
   background-color: #fff8e1;

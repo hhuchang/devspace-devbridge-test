@@ -1,59 +1,57 @@
 <script setup>
+import { ref, onMounted, watch, nextTick, onBeforeUnmount } from "vue";
+import { useRoute } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import TranslationNotice from "./TranslationNotice.vue";
+
+const route = useRoute();
+const target = ref(null);
+let mountEl = null;
+
+function setupTarget() {
+  // Clean up previous mount point
+  if (mountEl && mountEl.parentNode) {
+    mountEl.parentNode.removeChild(mountEl);
+    mountEl = null;
+  }
+
+  const container = document.querySelector(".content-container");
+  if (container) {
+    // Create a dedicated mount point at the TOP of content-container
+    mountEl = document.createElement("div");
+    container.insertBefore(mountEl, container.firstChild);
+    target.value = mountEl;
+  }
+}
+
+onMounted(() => {
+  nextTick(setupTarget);
+});
+
+// Re-setup on route change (new page = new content-container)
+watch(
+  () => route.path,
+  () => {
+    target.value = null;
+    nextTick(() => setTimeout(setupTarget, 0));
+  }
+);
+
+onBeforeUnmount(() => {
+  if (mountEl && mountEl.parentNode) {
+    mountEl.parentNode.removeChild(mountEl);
+  }
+});
 </script>
 
 <template>
   <DefaultTheme.Layout>
     <template #doc-top>
-      <div class="doc-top-wrapper">
-        <div class="doc-top-content">
+      <ClientOnly>
+        <Teleport v-if="target" :to="target">
           <TranslationNotice />
-        </div>
-        <div class="doc-top-aside-spacer"></div>
-      </div>
+        </Teleport>
+      </ClientOnly>
     </template>
   </DefaultTheme.Layout>
 </template>
-
-<style>
-/*
- * The #doc-top slot is a direct child of .VPDoc, OUTSIDE .container.
- * We replicate .container's flex layout (content + aside) to align
- * the notice with the actual content area below.
- */
-.doc-top-wrapper {
-  max-width: var(--vp-layout-max-width, 1480px);
-  margin: 0 auto;
-  display: flex;
-}
-
-.doc-top-content {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.doc-top-content > * {
-  width: 100%;
-  max-width: 744px;
-}
-
-.doc-top-aside-spacer {
-  width: 320px;
-  flex-shrink: 0;
-}
-
-/* On pages without aside (no outline), don't reserve aside space */
-.VPDoc:not(.has-aside) .doc-top-aside-spacer {
-  display: none;
-}
-
-/* On mobile, aside is hidden */
-@media (max-width: 1024px) {
-  .doc-top-aside-spacer {
-    display: none;
-  }
-}
-</style>
