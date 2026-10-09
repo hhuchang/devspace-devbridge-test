@@ -11,26 +11,6 @@ By participating in this project, you agree to abide by the Apache License 2.0 t
 
 ---
 
-## Table of contents
-
-- [Project structure](#project-structure)
-- [Local environment setup](#local-environment-setup)
-- [Quick start](#quick-start)
-- [Code conventions](#code-conventions)
-- [Testing](#testing)
-- [Branching strategy](#branching-strategy)
-- [Commit conventions](#commit-conventions)
-- [Pull Request workflow](#pull-request-workflow)
-- [CLI development guide](#cli-development-guide)
-- [Environment and configuration](#environment-and-configuration)
-- [Go SDK development guide](#go-sdk-development-guide)
-- [Issue guidelines](#issue-guidelines)
-- [Release process](#release-process)
-- [FAQ](#faq)
-- [Contact](#contact)
-
----
-
 ## Project structure
 
 DevBridge is a monorepo with two components, each in its own top-level directory with its own toolchain:
@@ -371,29 +351,16 @@ make build-all    # builds 6 platform binaries + SHA256 checksums
 - Do not write complex business logic in `cmd/` — keep the command layer thin
 - New dependencies must be justified in the PR, and `go mod tidy` must produce a consistent `go.sum`
 
-### Version injection
-
-Version numbers, server addresses, and other parameters are injected at build time via `-ldflags` (see `LDFLAGS` in `Makefile`). When modifying these injected variables, update both `Makefile` and `.goreleaser.yaml`.
-
----
-
----
-
-## Environment and configuration
-
-DevBridge uses a layered configuration model. Each layer can override the one below:
-
-```text
-CLI config file  >  ldflags (build-time)  >  hardcoded defaults
-SDK Config struct >  environment variable  >  hardcoded defaults
-```
-
 ### Environment variables
+
+CLI configuration priority: config file > ldflags (build-time) > hardcoded defaults.
 
 | Variable         | Scope | Purpose                                       | Required? |
 | ---------------- | ----- | --------------------------------------------- | --------- |
 | `HW_API_KEY`     | Both  | API key for REST API authentication           | Yes       |
 | `DEVBRIDGE_LANG` | CLI   | Override interface language (e.g. `zh`, `en`) | No        |
+
+Create a DevBridge key on the [API key management page](https://devstation.connect.huaweicloud.com/space/devbridge/apikey), then set the environment variable:
 
 ```bash
 export HW_API_KEY="devbridge_your_api_key"
@@ -433,14 +400,14 @@ The REST API base URL, login page URL, and WebSocket gateway address are injecte
 
 The full REST API base URL is `SERVER_DOMAIN + /open-api-inner/v1/relay-controller`.
 
-Three build targets provide three address sets:
+The production build (`build-prod`) injects these addresses:
 
-| Variable         | `build-dev` / `build-test`                      | `build-prod`                                 |
-| ---------------- | ----------------------------------------------- | -------------------------------------------- |
-| `SERVER_DOMAIN`  | `http://relay-dev-local.tailb4159e.ts.net:8443` | `https://bridge.developer.myhuaweicloud.com` |
-| `LOGIN_URL`      | `https://devstation.ulanqab.huawei.com`         | `https://devstation.connect.huaweicloud.com` |
-| `GATEWAY_ADDR`   | `gateway.devbridge-s2.hwtunnel.com`             | `gateway.devbridge-s2.hwtunnel.com:443`      |
-| `CLUSTER_DOMAIN` | `devbridge-s2.hwtunnel.com`                     | `devbridge-s2.hwtunnel.com`                  |
+| Variable         | `build-prod`                                 |
+| ---------------- | -------------------------------------------- |
+| `SERVER_DOMAIN`  | `https://bridge.developer.myhuaweicloud.com` |
+| `LOGIN_URL`      | `https://devstation.connect.huaweicloud.com` |
+| `GATEWAY_ADDR`   | `gateway.devbridge-s2.hwtunnel.com:443`      |
+| `CLUSTER_DOMAIN` | `devbridge-s2.hwtunnel.com`                  |
 
 To target a custom environment, override any variable:
 
@@ -450,7 +417,33 @@ make build-dev SERVER_DOMAIN=https://my-test-server.com LOGIN_URL=https://my-log
 
 When modifying these variables, update both `Makefile` and `.goreleaser.yaml` (or `.goreleaser.test.yaml`).
 
-### Go SDK configuration
+### Relationship to the API documentation
+
+The REST API base URL documented in [REST API](/reference/api) corresponds to the prod build value of `SERVER_DOMAIN` + `RelayControllerPath`:
+
+```text
+https://bridge.developer.myhuaweicloud.com  +  /open-api-inner/v1/relay-controller
+= https://bridge.developer.myhuaweicloud.com/open-api-inner/v1/relay-controller
+```
+
+---
+
+## Go SDK development guide
+
+The Go SDK lives in `go-sdk/` and enables third-party applications to integrate DevBridge capabilities.
+
+### Local build and tests
+
+```bash
+cd go-sdk
+go build ./...
+go test ./...
+go vet ./...
+```
+
+### SDK configuration
+
+SDK configuration priority: `Config` struct > environment variable > hardcoded defaults.
 
 Third-party applications configure the SDK via the `Config` struct. Empty fields fall back to environment variables and then to hardcoded defaults:
 
@@ -474,28 +467,6 @@ SDK default constants:
 | `DefaultGatewayAddr` | `gateway.devbridge-s2.hwtunnel.com:443`                                         |
 | `DefaultGatewayHost` | `devbridge-s2.hwtunnel.com`                                                     |
 | `DefaultClusterID`   | `devbridge-s2` (overridable via ldflags)                                        |
-
-### Relationship to the API documentation
-
-The REST API base URL documented in [REST API](/reference/api) corresponds to the prod build value of `SERVER_DOMAIN` + `RelayControllerPath`:
-
-```text
-https://bridge.developer.myhuaweicloud.com  +  /open-api-inner/v1/relay-controller
-= https://bridge.developer.myhuaweicloud.com/open-api-inner/v1/relay-controller
-```
-
-## Go SDK development guide
-
-The Go SDK lives in `go-sdk/` and enables third-party applications to integrate DevBridge capabilities.
-
-### Local build and tests
-
-```bash
-cd go-sdk
-go build ./...
-go test ./...
-go vet ./...
-```
 
 ### Code organization conventions
 

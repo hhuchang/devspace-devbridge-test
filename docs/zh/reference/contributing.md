@@ -11,26 +11,6 @@ description: 参与 DevBridge 开源开发——环境配置、代码规范、�
 
 ---
 
-## 目录
-
-- [项目结构](#项目结构)
-- [本地环境配置](#本地环境配置)
-- [快速开始](#快速开始)
-- [代码规范](#代码规范)
-- [测试](#测试)
-- [分支策略](#分支策略)
-- [提交规范](#提交规范)
-- [Pull Request 流程](#pull-request-流程)
-- [CLI 开发指南](#cli-开发指南)
-- [环境变量与配置](#环境变量与配置)
-- [Go SDK 开发指南](#go-sdk-开发指南)
-- [Issue 指南](#issue-指南)
-- [发布流程](#发布流程)
-- [常见问题](#常见问题)
-- [联系方式](#联系方式)
-
----
-
 ## 项目结构
 
 DevBridge 是一个 Monorepo，两个组件各自使用独立的首层目录和工具链：
@@ -371,29 +351,16 @@ make build-all    # 构建 6 个平台产物 + SHA256 校验和
 - 不要在 `cmd/` 中写复杂业务逻辑，保持命令层薄
 - 新增依赖需在 PR 中说明理由，并确保 `go mod tidy` 后 `go.sum` 一致
 
-### 版本注入
-
-构建时通过 `-ldflags` 注入版本号、服务器地址等参数（见 `Makefile` 中的 `LDFLAGS`）。修改这些注入变量时需同步更新 `Makefile` 和 `.goreleaser.yaml`。
-
----
-
----
-
-## 环境变量与配置
-
-DevBridge 采用分层配置模型，上层覆盖下层：
-
-```text
-CLI 配置文件  >  ldflags（构建时注入）  >  代码硬编码默认值
-SDK Config 结构体  >  环境变量  >  代码硬编码默认值
-```
-
 ### 环境变量
+
+CLI 配置优先级：配置文件 > ldflags（构建时注入）> 代码硬编码默认值。
 
 | 变量             | 作用域 | 用途                          | 是否必需 |
 | ---------------- | ------ | ----------------------------- | -------- |
 | `HW_API_KEY`     | 两者   | REST API 认证的 API Key       | 是       |
 | `DEVBRIDGE_LANG` | CLI    | 覆盖界面语言（如 `zh`、`en`） | 否       |
+
+在 [API Key 管理页面](https://devstation.connect.huaweicloud.com/space/devbridge/apikey) 创建 DevBridge Key，然后设置环境变量：
 
 ```bash
 export HW_API_KEY="devbridge_your_api_key"
@@ -433,14 +400,14 @@ REST API 基础地址、登录页面 URL 和 WebSocket 网关地址在构建时�
 
 完整的 REST API 基础地址 = `SERVER_DOMAIN` + `/open-api-inner/v1/relay-controller`。
 
-三个构建目标对应三套地址：
+生产构建（`build-prod`）注入的地址：
 
-| 变量             | `build-dev` / `build-test`                      | `build-prod`                                 |
-| ---------------- | ----------------------------------------------- | -------------------------------------------- |
-| `SERVER_DOMAIN`  | `http://relay-dev-local.tailb4159e.ts.net:8443` | `https://bridge.developer.myhuaweicloud.com` |
-| `LOGIN_URL`      | `https://devstation.ulanqab.huawei.com`         | `https://devstation.connect.huaweicloud.com` |
-| `GATEWAY_ADDR`   | `gateway.devbridge-s2.hwtunnel.com`             | `gateway.devbridge-s2.hwtunnel.com:443`      |
-| `CLUSTER_DOMAIN` | `devbridge-s2.hwtunnel.com`                     | `devbridge-s2.hwtunnel.com`                  |
+| 变量             | `build-prod`                                 |
+| ---------------- | -------------------------------------------- |
+| `SERVER_DOMAIN`  | `https://bridge.developer.myhuaweicloud.com` |
+| `LOGIN_URL`      | `https://devstation.connect.huaweicloud.com` |
+| `GATEWAY_ADDR`   | `gateway.devbridge-s2.hwtunnel.com:443`      |
+| `CLUSTER_DOMAIN` | `devbridge-s2.hwtunnel.com`                  |
 
 要对接自定义环境，覆盖任意变量即可：
 
@@ -450,7 +417,33 @@ make build-dev SERVER_DOMAIN=https://my-test-server.com LOGIN_URL=https://my-log
 
 修改这些变量时需同步更新 `Makefile` 和 `.goreleaser.yaml`（或 `.goreleaser.test.yaml`）。
 
-### Go SDK 配置
+### 与 API 文档的对应关系
+
+[REST API](/zh/reference/api) 文档中记录的 API 基础地址对应 prod 构建的 `SERVER_DOMAIN` + `RelayControllerPath`：
+
+```text
+https://bridge.developer.myhuaweicloud.com  +  /open-api-inner/v1/relay-controller
+= https://bridge.developer.myhuaweicloud.com/open-api-inner/v1/relay-controller
+```
+
+---
+
+## Go SDK 开发指南
+
+Go SDK 位于 `go-sdk/` 目录，供第三方应用集成 DevBridge 能力。
+
+### 本地构建与测试
+
+```bash
+cd go-sdk
+go build ./...
+go test ./...
+go vet ./...
+```
+
+### SDK 配置
+
+SDK 配置优先级：`Config` 结构体 > 环境变量 > 代码硬编码默认值。
 
 第三方应用通过 `Config` 结构体配置 SDK。空字段依次回退到环境变量和硬编码默认值：
 
@@ -474,28 +467,6 @@ SDK 默认常量：
 | `DefaultGatewayAddr` | `gateway.devbridge-s2.hwtunnel.com:443`                                         |
 | `DefaultGatewayHost` | `devbridge-s2.hwtunnel.com`                                                     |
 | `DefaultClusterID`   | `devbridge-s2`（可通过 ldflags 覆盖）                                           |
-
-### 与 API 文档的对应关系
-
-[REST API](/zh/reference/api) 文档中记录的 API 基础地址对应 prod 构建的 `SERVER_DOMAIN` + `RelayControllerPath`：
-
-```text
-https://bridge.developer.myhuaweicloud.com  +  /open-api-inner/v1/relay-controller
-= https://bridge.developer.myhuaweicloud.com/open-api-inner/v1/relay-controller
-```
-
-## Go SDK 开发指南
-
-Go SDK 位于 `go-sdk/` 目录，供第三方应用集成 DevBridge 能力。
-
-### 本地构建与测试
-
-```bash
-cd go-sdk
-go build ./...
-go test ./...
-go vet ./...
-```
 
 ### 代码组织约定
 
